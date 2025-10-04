@@ -9,13 +9,11 @@ use App\Controller\AppController;
  */
 class CarrosController extends AppController
 {
-  public function show($id){
-    var_dump('carros ' . $id);
-
-    die();
+  public function index(){
+    return $this->render('index', 'master');
   }
-  public function showAll(){
-    var_dump('show all');
+  public function singular($id){
+    var_dump('carros ' . $id);
 
     die();
   }

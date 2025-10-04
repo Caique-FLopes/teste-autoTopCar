@@ -16,8 +16,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     //carros flow
     Router::scope('/carros', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Carros', 'action' => 'showAll'], ['_name' => 'carros.showAll'])->setMethods(['get']);
-        $routes->connect('/{id}', ['controller' => 'Carros', 'action' => 'show'], ['_name' => 'carros.show'], ['pass' => ['id'],  'id' => '[0-9]+'])->setMethods(['get']);
+        $routes->connect('/', ['controller' => 'Carros', 'action' => 'index'], ['_name' => 'carros.index'])->setMethods(['get']);
+        $routes->connect('/{id}', ['controller' => 'Carros', 'action' => 'singular'], ['_name' => 'carros.singular'], ['pass' => ['id'],  'id' => '[0-9]+'])->setMethods(['get']);
     });
 
     //marcas flow

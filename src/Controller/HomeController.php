@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use phpDocumentor\Reflection\Types\This;
 
 /**
  * Home Controller
@@ -10,8 +11,10 @@ use App\Controller\AppController;
 class HomeController extends AppController
 {
   public function index(){
-    var_dump('index home');
+    $name = 'Caique';
+    $age = 23;
 
-    die();
+    $this->set(compact('name', 'age'));
+    return $this->render('index', 'master');
   }
 }
