@@ -5,3 +5,11 @@
     text-decoration: none;
     list-style: none;
 }
+
+header.header-site {
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.logo-header {
+    max-width: 5.6rem;
+}

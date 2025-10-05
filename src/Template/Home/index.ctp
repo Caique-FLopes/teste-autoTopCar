@@ -10,7 +10,12 @@
 <?php echo $this->element('header'); ?>
 <?php $this->end();?>
 
-<h2><?= $name ?></h2>
+<ul>
+  <?php foreach($marcas as $marca): ?>
+      <li><?= $marca->name ?></li>
+  <?php endforeach; ?>
+</ul>
+  
 
 
 <?php $this->start('js')?>

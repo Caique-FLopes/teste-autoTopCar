@@ -17,17 +17,18 @@ class Marcas extends AbstractMigration
 
         $table->addColumn('name', 'string', ['limit' => 100, 'null' => false]);
 
-        $table->addColumn('situacao_id', 'integer', [
-            'null' => false,
-        ]);
+        $table->addColumn('logo_file', 'string', ['limit' => 150, 'null' => true]);
+        // $table->addColumn('situacao_id', 'integer', [
+        //     'null' => false,
+        // ]);
 
         $table->addColumn('created_at', 'datetime', ['null' => true, 'default' => null]);
         $table->addColumn('updated_at', 'datetime', ['null' => true, 'default' => null]);
 
-        $table->addForeignKey('situacao_id', 'situacoes', 'id', [
-            'delete' => 'RESTRICT',
-            'update' => 'CASCADE',
-        ]);
+        // $table->addForeignKey('situacao_id', 'situacoes', 'id', [
+        //     'delete' => 'RESTRICT',
+        //     'update' => 'CASCADE',
+        // ]);
 
         $table->create();
 

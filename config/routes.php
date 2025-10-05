@@ -9,34 +9,16 @@ Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
 
-    //normal flow
-    Router::scope('/', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Home', 'action' => 'index'], ['_name' => 'home.index'])->setMethods(['get']);
-    });
+    $routes->connect('/', ['controller' => 'Home', 'action' => 'index']);
 
-    //carros flow
-    Router::scope('/carros', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Carros', 'action' => 'index'], ['_name' => 'carros.index'])->setMethods(['get']);
-        $routes->connect('/{id}', ['controller' => 'Carros', 'action' => 'singular'], ['_name' => 'carros.singular'], ['pass' => ['id'],  'id' => '[0-9]+'])->setMethods(['get']);
-    });
+    $routes->connect('/marcas', ['controller' => 'Marcas', 'action' => 'index'],['_name' =>  'marcas.index']);
+    $routes->connect('/marcas/{id}', ['controller' => 'Marcas', 'action' => 'editar'],['_name' =>  'marcas.singular'])->setPass(['id']);
+    $routes->connect('/marcas/{id}/carros', ['controller' => 'Marcas', 'action' => 'carros'],['_name' =>  'marcas.carros'])->setPass(['id']);
 
-    //marcas flow
-    Router::scope('/marcas', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Marcas', 'action' => 'showAll'], ['_name' => 'marcas.showAll'])->setMethods(['get']);
-        $routes->connect('/{id}', ['controller' => 'Marcas', 'action' => 'show'], ['_name' => 'marcas.show'], ['pass' => ['id'],  'id' => '[0-9]+'])->setMethods(['get']);
-    });
+    $routes->connect('/marcas/{id}/editar', ['controller' => 'Marcas', 'action' => 'editar'], ['_name' => 'marcas.editar'])->setPass(['id'])->match(['get', 'post']);
 
-    //flow admin
-    Router::scope('/admin', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'Admin', 'action' => 'index'], ['_name' => 'admin.index'])->setMethods(['get']);
-        $routes->connect('/carros', ['controller' => 'AdminCarros', 'action' => 'index'], ['_name' => 'adminCarros.index'])->setMethods(['get']);
-        $routes->connect('/carros/{id}', ['controller' => 'AdminCarros', 'action' => 'show'], ['_name' => 'adminCarros.show', 'pass' => ['id'], 'id' => '[0-9]+'])->setMethods(['get']);
-    });
-
-    //flow client
-
-
-    //default
+    $routes->connect('/marcas/adicionar', ['controller' => 'Marcas', 'action' => 'adicionar'], ['_name' => 'marcas.adicionar'])->match(['get', 'post']);
+    
     $routes->fallbacks();
 });
 

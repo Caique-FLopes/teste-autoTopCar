@@ -12,12 +12,18 @@ class Situacoes extends AbstractMigration
      */
     public function change()
     {
-        
         $table = $this->table('situacoes', ['engine' => 'InnoDB']);
+        
         $table->addColumn('description', 'enum', [
             'values' => ['active', 'deleted'],
             'default' => 'active',
             'null' => false,
+        ]);
+        $table->addColumn('id_item', 'integer', [
+            'null' => false
+            ]);
+        $table->addColumn('table_item', 'string', [
+            'null' => false
         ]);
         $table->addColumn('created_at', 'datetime', [
             'null' => true, 'default' => null

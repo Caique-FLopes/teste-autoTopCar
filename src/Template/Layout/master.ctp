@@ -11,10 +11,10 @@
 </head>
 <body>
   <?= $this->fetch('header'); ?>
-  <div class="container">
-    <h2>Cake</h2>
+  <main class="container">
     <?= $this->fetch('content'); ?>
-  </div>
+  </main>
   <?= $this->fetch('js') ?>
+
 </body>
 </html>

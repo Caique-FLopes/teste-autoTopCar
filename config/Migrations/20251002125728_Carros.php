@@ -20,9 +20,9 @@ class Carros extends AbstractMigration
         $table->addColumn('model', 'string', ['limit' => 50,'null' => false]);
         $table->addColumn('year', 'integer', ['limit' => 9999,'null' => true, 'default' => null]);
         $table->addColumn('placa', 'string', ['limit' => 7,'null' => false]);
-        $table->addColumn('situacao_id', 'integer', [
-            'null' => false,
-        ]);
+        // $table->addColumn('situacao_id', 'integer', [
+        //     'null' => false,
+        // ]);
         $table->addColumn('created_at', 'datetime', ['default' => NULL]);
         $table->addColumn('updated_at', 'datetime', ['default' => null]);
 
@@ -31,10 +31,10 @@ class Carros extends AbstractMigration
             'update' => 'CASCADE',
         ]);
         
-        $table->addForeignKey('situacao_id', 'situacoes', 'id', [
-            'delete' => 'RESTRICT',
-            'update' => 'CASCADE',
-        ]);
+        // $table->addForeignKey('situacao_id', 'situacoes', 'id', [
+        //     'delete' => 'RESTRICT',
+        //     'update' => 'CASCADE',
+        // ]);
 
         $table->create();
     }
