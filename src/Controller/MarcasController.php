@@ -58,6 +58,8 @@ class MarcasController extends AppController
         $tableSituacoes->saveOrFail($newSituacao);
       } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
         var_dump( $e->getEntity());
+      } finally{
+        $this->redirect(['_name' => 'marcas.index']);
       }
     }
   }

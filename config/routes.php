@@ -14,11 +14,14 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/marcas', ['controller' => 'Marcas', 'action' => 'index'],['_name' =>  'marcas.index']);
     $routes->connect('/marcas/{id}', ['controller' => 'Marcas', 'action' => 'editar'],['_name' =>  'marcas.singular'])->setPass(['id']);
     $routes->connect('/marcas/{id}/carros', ['controller' => 'Marcas', 'action' => 'carros'],['_name' =>  'marcas.carros'])->setPass(['id']);
-
     $routes->connect('/marcas/{id}/editar', ['controller' => 'Marcas', 'action' => 'editar'], ['_name' => 'marcas.editar'])->setPass(['id'])->match(['get', 'post']);
-
     $routes->connect('/marcas/adicionar', ['controller' => 'Marcas', 'action' => 'adicionar'], ['_name' => 'marcas.adicionar'])->match(['get', 'post']);
-    
+
+    $routes->connect('/carros', ['controller' => 'Carros', 'action' => 'index'], ['_name' => 'carros.index']);
+    $routes->connect('/carros/{id}', ['controller' => 'Marcas', 'action' => 'editar'],['_name' =>  'carros.singular'])->setPass(['id']);
+
+    $routes->connect('/carros/adicionar', ['controller' => 'Carros', 'action' => 'adicionar'], ['_name' => 'carros.adicionar'])->match(['get', 'post']);
+
     $routes->fallbacks();
 });
 

@@ -25,12 +25,8 @@ class Situacoes extends AbstractMigration
         $table->addColumn('table_item', 'string', [
             'null' => false
         ]);
-        $table->addColumn('created_at', 'datetime', [
-            'null' => true, 'default' => null
-        ]);
-        $table->addColumn('updated_at', 'datetime', [
-            'null' => true, 'default' => null
-        ]);
+        $table->addTimestamps('created', 'modified');
+        
         $table->create();
     }
 }

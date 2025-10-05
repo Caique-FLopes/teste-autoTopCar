@@ -4,16 +4,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Situaco Entity
+ * Carro Entity
  *
  * @property int $id
- * @property string $description
- * @property int $id_item
- * @property string $table_item
- * @property \Cake\I18n\FrozenTime|null $created_at
- * @property \Cake\I18n\FrozenTime|null $updated_at
+ * @property int $marca_id
+ * @property string $model
+ * @property int|null $year
+ * @property string $placa
+ * @property \Cake\I18n\FrozenTime $created_at
+ * @property \Cake\I18n\FrozenTime $updated_at
+ *
+ * @property \App\Model\Entity\Marca $marca
  */
-class Situaco extends Entity
+class Carro extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -25,10 +28,12 @@ class Situaco extends Entity
      * @var array
      */
     protected $_accessible = [
-        'description' => true,
-        'id_item' => true,
-        'table_item' => true,
-        'created' => true,
-        'modified' => true,
+        'marca_id' => true,
+        'model' => true,
+        'year' => true,
+        'placa' => true,
+        'created' => false,
+        'modified' => false,
+        'marca' => true,
     ];
 }

@@ -18,6 +18,7 @@
 <?php $this->end();?>
 
 <section class="mt-4">
+  <h1>Marcas</h1>
   <ul class="row justify-content-center align-center gap-3">
     <?php foreach($marcas as $marca): ?>
         <li class="card" style="width: 18rem;">

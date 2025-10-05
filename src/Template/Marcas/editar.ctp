@@ -13,6 +13,7 @@ $this->assign('title', h($marcaAtual->name));
 <?php $this->end() ?>
 
 <section>
+  <h1>Editar <?= $marcaAtual->name ?></h1>
   <div>
     <label for="logo_file">
       <picture>
@@ -29,7 +30,6 @@ $this->assign('title', h($marcaAtual->name));
           method="post"
           enctype="multipart/form-data">
       
-      <input type="hidden" name="_csrfToken" value="<?= $this->request->getAttribute('csrfToken') ?>">
 
       <input type="hidden" name="_method" id="_method" value="POST">
 
@@ -47,10 +47,10 @@ $this->assign('title', h($marcaAtual->name));
           value="<?= h($marcaAtual->name) ?>">
       </fieldset>
 
-      <input type="file" name="logo_file" id="logo_file" accept="image/*" hidden>
 
       <div class="d-flex justify-content-between">
         <button 
+          id="save"
           type="submit"
           class="btn text-bg-success"
           data-bs-toggle="tooltip"
@@ -77,6 +77,11 @@ $this->assign('title', h($marcaAtual->name));
 
 <?php $this->start('js') ?>
 <script>
+  document.querySelector('#marcaForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(document.querySelector('input[name=name]').value && !(document.querySelector('input[name=name]').value === '<?= "{$marcaAtual->name}" ?>')) e.target.submit();
+    else alert('Altere para um nome válido');
+  })
 
   function prepareDelete(e) {
     e.preventDefault(); 

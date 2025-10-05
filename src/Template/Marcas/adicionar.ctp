@@ -18,6 +18,7 @@
 <?php $this->end();?>
 
 <section>
+  <h1>Adicionar Marca</h1>
   <div>
     <label for="logo_file">
       <picture>

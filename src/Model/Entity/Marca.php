@@ -26,9 +26,9 @@ class Marca extends Entity
      */
     protected $_accessible = [
         'name' => true,
-        'created_at' => true,
-        'updated_at' => true,
-        'logo_file' => true,
+        'created' => true,
+        'modified' => true,
+        //'logo_file' => true,
         'carros' => true,
     ];
 }
