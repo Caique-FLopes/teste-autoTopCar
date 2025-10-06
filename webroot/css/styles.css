@@ -6,10 +6,33 @@
     list-style: none;
 }
 
+body {
+    /* padding-top: 70px;
+    padding-bottom: 188px; */
+}
+
 header.header-site {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
 }
 
 .logo-header {
     max-width: 5.6rem;
+}
+
+.footer-site {
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+    /* position: fixed;
+    bottom: 0; */
+}
+
+label {
+    cursor: pointer;
+}
+
+#preview {
+    width: 100%;
+    height: auto;
+    max-height: 16rem;
+    object-fit: cover;
+    object-position: center;
 }

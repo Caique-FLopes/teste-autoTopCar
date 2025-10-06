@@ -12,13 +12,35 @@ use phpDocumentor\Reflection\Types\This;
  */
 class HomeController extends AppController
 {
-  public function index(){
-    $connection = ConnectionManager::get('default');
+  private function _getMarcasAtivas(){
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
+    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
 
-    $tableMarcas = TableRegistry::getTableLocator()->get('marcas');
-    $marcas = $tableMarcas->find()->where(['id >' => 2])->limit(2);
-    
-    $this->set(compact('marcas'));
-    return $this->render('index', 'master');
+    $ids = $tableSituacoes->find()->select(['id_item'])->where(['description' => 'active', 'table_item' => 'marcas']);
+    return $tableMarcas->find()->where(['id IN' => $ids]);
+  }
+
+  private function _getCarrosAtivos(){
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
+    $tableCarros = TableRegistry::getTableLocator('default')->get('carros');
+
+    $ids = $tableSituacoes->find()->select(['id_item'])->where(['description' => 'active', 'table_item' => 'carros']);
+    return $tableCarros->find()->where(['id IN' => $ids]);
+  }
+
+  private function _getImages(){
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
+    $tableImages = TableRegistry::getTableLocator('default')->get('images');
+
+    $ids = $tableSituacoes->find()->select(['id_item'])->where(['description' => 'active', 'table_item' => 'images']);
+    return $tableImages->find()->where(['id IN' => $ids]);
+  }
+
+  public function index(){
+    $marcas = $this->_getMarcasAtivas();
+    $carros = $this->_getCarrosAtivos();
+    $images = $this->_getImages();
+
+    $this->set(compact('marcas', 'carros', 'images'));
   }
 }

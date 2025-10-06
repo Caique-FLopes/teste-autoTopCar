@@ -14,6 +14,7 @@
   <main class="container">
     <?= $this->fetch('content'); ?>
   </main>
+  <?= $this->fetch('footer'); ?>
   <?= $this->fetch('js') ?>
 
 </body>

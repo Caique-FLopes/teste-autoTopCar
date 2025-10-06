@@ -10,6 +10,10 @@
 <?php echo $this->element('header'); ?>
 <?php $this->end();?>
 
+<?php $this->start('footer') ?>
+<?= $this->element('footer') ?>
+<?php $this->end() ?>
+
 <?php $this->start('js');?>
   <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

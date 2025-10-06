@@ -15,44 +15,22 @@ use Exception;
  */
 class MarcasController extends AppController
 { 
-  public function index(){
-    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
-    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
 
+  private function _getMarcas($id = null){
+    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
+
+    if($id) return $tableMarcas->get($id);
+
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
     $ids = $tableSituacoes->find()->select(['id_item'])->where(['description' => 'active', 'table_item' => 'marcas']);
-    $marcas = $tableMarcas->find()->where(['id IN' => $ids]);
-    $this->set(compact('marcas'));
+    return $tableMarcas->find()->where(['id IN' => $ids]);
   }
-  public function editar($id){
-    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
 
-    $marcaAtual = $tableMarcas->get($id);
-
-    if($this->getRequest()->is('delete')){
-      $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
-      $tableSituacoes->updateAll(['description' => 'deleted'],['id_item' => $id, 'table_item' => 'marcas']); 
-      $this->redirect(['_name' => 'marcas.index']);
-    }
-
-    if($this->getRequest()->is('post')){
-      var_dump($this->getRequest()->getData());
-      $tableMarcas->updateAll($this->getRequest()->getData(), ['id ='=> $id]);
-      $this->redirect(['_name' => 'marcas.index']);
-    }
-
-    $this->set(compact('marcaAtual'));
-  }
-  public function singular($id){
-    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
-    $this->set(compact('marcas'));
-  }
-  public function adicionar(){
+  private function _insertMarca($data){
     $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
     $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
-
-    if($this->getRequest()->is('post')){
-      try {
-        $newMarca =  $tableMarcas->newEntity($this->getRequest()->getData());
+    try {
+        $newMarca =  $tableMarcas->newEntity($data);
         $tableMarcas->saveOrFail($newMarca);
         $newSituacao = $tableSituacoes->newEntity(['id_item' => $newMarca->id, 'table_item' => 'marcas']);
         $tableSituacoes->saveOrFail($newSituacao);
@@ -61,6 +39,62 @@ class MarcasController extends AppController
       } finally{
         $this->redirect(['_name' => 'marcas.index']);
       }
+  }
+
+  private function _getCarrosAtivos($id){
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
+    $tableCarros = TableRegistry::getTableLocator('default')->get('carros');
+
+    $ids = $tableSituacoes->find()->select(['id_item'])->where(['description' => 'active', 'table_item' => 'carros']);
+    return $tableCarros->find()->where(['id IN' => $ids, 'marca_id =' => $id]);
+  }
+
+  
+  private function _deleteMarca($id){
+    $tableSituacoes = TableRegistry::getTableLocator('default')->get('situacoes');
+    $tableSituacoes->updateAll(['description' => 'deleted'],['id_item' => $id, 'table_item' => 'marcas']); 
+    $this->redirect(['_name' => 'marcas.index']);
+  }
+
+  private function _updateMarca($id, $data){
+    $tableMarcas = TableRegistry::getTableLocator('default')->get('marcas');
+    $tableMarcas->updateAll($data, ['id ='=> $id]);
+    $this->redirect(['_name' => 'marcas.index']);
+  }
+
+  public function index(){
+    $marcas = $this->_getMarcas();
+    $this->set(compact('marcas'));
+  }
+  
+  public function editar($id){
+    $marcaAtual = $this->_getMarcas($id);
+
+    if($this->getRequest()->is('delete')){
+      $this->_deleteMarca($id);
     }
+
+    if($this->getRequest()->is('post')){
+      $this->_updateMarca($id, $this->getRequest()->getData());
+    }
+
+    $this->set(compact('marcaAtual'));
+  }
+
+  public function singular($id){
+    $marca = $this->_getMarcas($id);
+    $this->set(compact('marca'));
+  }
+
+  public function adicionar(){
+    if($this->getRequest()->is('post')){
+     $this->_insertMarca($this->getRequest()->getData());
+    }
+  }
+
+  public function carros($id){
+    $marca = $this->_getMarcas($id);
+    $carros = $this->_getCarrosAtivos($id);
+    $this->set(compact('carros', 'marca'));
   }
 }

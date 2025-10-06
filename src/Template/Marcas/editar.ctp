@@ -1,5 +1,4 @@
 <?php
-/** @var \App\Model\Entity\Marca $marcaAtual */
 $this->layout = 'master';
 $this->assign('title', h($marcaAtual->name));
 ?>
@@ -10,6 +9,10 @@ $this->assign('title', h($marcaAtual->name));
 
 <?php $this->start('header') ?>
 <?= $this->element('header') ?>
+<?php $this->end() ?>
+
+<?php $this->start('footer') ?>
+<?= $this->element('footer') ?>
 <?php $this->end() ?>
 
 <section>
